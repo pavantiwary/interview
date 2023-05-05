@@ -1,0 +1,6 @@
+FROM ubuntu
+LABEL NAME/MAINTAINER pavantiwary4@gmail.com
+WORKDIR /tmp
+RUN apt upadte -y && apt install nginx
+RUN echo "hello pavan" > /var/www/html/index.html
+CMD [ "/usr/sbin/nginx" ]
