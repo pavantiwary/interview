@@ -1,0 +1,40 @@
+create a new file
+
+---
+- hosts: webservers
+  become: true
+  tasks:
+  - name: Create a file
+    file: path=/home/batch-13.txt state=touch
+    
+    ================================================================================================================
+    
+    install package 
+    
+    ---
+- hosts: webservers
+  become: true
+  tasks:
+   - name: Install Package git
+     yum: name=git state=present
+   - name: Install Package
+     yum: name=httpd state=present
+   - name: Start httpd service
+     service: name=httpd state=started
+     
+     ====================================================================================================================
+     
+     multipacahe yml
+     
+     ---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Update apt cache and make sure Vim, Curl and Unzip are installed
+      apt:
+        name: "{{ item }}"
+        update_cache: yes
+      loop:
+        - vim
+        - curl
+        - unzip
