@@ -1,0 +1,95 @@
+                                                       to create POD-defination.yml
+
+apiVersion: v1
+kind: pod
+metadata:
+  name: myapp-pod
+  labels: 
+    app: myapp
+    type: frontend
+spec:
+   containers:
+     -name: nginx container
+      image: nginx
+      
+      
+      
+                                                              to create replicaset manifest
+
+
+apiVersion: apps/v1
+kind: replicaset
+metadata:
+  name: myapp-pod
+  labels: 
+    app: myapp
+    type: frontend
+spec:
+  replicas: 3
+  selector
+    matchlabels: 
+     tier: frontend
+  templates:
+    metadata:
+     labels:
+       tier:frontend
+spec:
+   containers:
+     -name: nginx container
+      image: nginx    
+    
+                                                              to create deployment manifest
+
+    
+
+apiVersion: apps/v1
+kind: deployment
+metadata:
+  name: myapp-pod
+  labels: 
+    app: myapp
+    type: frontend
+spec: 
+  templates:
+    metadata:
+     name: my app-pod
+     labels:
+       app: my app
+       tier:frontend
+spec:
+   containers:
+     -name: nginx container
+      image: nginx   
+spec:
+  replicas: 3
+  selector
+    matchlabels: 
+     tier: frontend
+     
+     
+                                                           service type-nodeport
+                                                           
+                                                           
+apiVersion: v1
+kind: service
+metadata:
+  name: myapp-service
+spec:
+ type: nodeport
+ ports:
+  -targetport:80
+   port:80
+   nodeport:30009
+   
+                                                           service type-cluster IP
+                                                           
+                                                           
+apiVersion: v1
+kind: service
+metadata:
+  name: backend
+spec:
+ type: cluster IP
+ ports:
+  -targetport:80
+   port:80
